@@ -1,0 +1,4 @@
+clipstore
+*.o
+*.swp
+*~
