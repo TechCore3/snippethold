@@ -17,8 +17,8 @@
  */
 
 
-#ifndef CLIPSTORE_H
-#define CLIPSTORE_H
+#ifndef SNIPPETHOLD_H
+#define SNIPPETHOLD_H
 
 int write_file(const char *content, const char *file);
 

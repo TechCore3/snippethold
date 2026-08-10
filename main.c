@@ -17,7 +17,7 @@
  */
 
 
-#include "clipstore.h"
+#include "snippethold.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -25,11 +25,11 @@
 #include <sys/stat.h>
 
 void print_usage(void) {
-    puts("clipstore usage:");
-    puts("  clipstore -s <file> <contents>");
-    puts("  clipstore -S <file>");
-    puts("  clipstore -l");
-    puts("  clipstore -r <file>");
+    puts("snippethold usage:");
+    puts("  snippethold -s <file> <contents>");
+    puts("  snippethold -S <file>");
+    puts("  snippethold -l");
+    puts("  snippethold -r <file>");
 }
 
 int main(int argc, char *argv[]){
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]){
 	        return 0;
 	    }
 
-    snprintf(dir_path, sizeof(dir_path), "%s/.clipstore", home);
+    snprintf(dir_path, sizeof(dir_path), "%s/.config/snippethold", home);
 
     if (access(dir_path, F_OK)){
 		mkdir(dir_path, 0700);
