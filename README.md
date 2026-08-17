@@ -4,7 +4,6 @@ snippethold is a fast, lightweight, terminal-based snippet manager written in C.
 
 ## Features
 
-* Lightweight & Fast: Zero external dependencies outside standard C libraries.
 * Isolated Storage: Automatically creates and uses a dedicated directory (~/.config/.snippethold).
 * Simple Interface: Easy-to-remember flags for common snippet management operations.
 
@@ -17,12 +16,13 @@ Prerequisites:
 
 Building and Installing:
 
-1. Clone the repository:
+1. Install libsodium for encryption with your packagem manager of choice:
+sudo pacman -S libsodium
+2. Clone the repository:
 git clone https://github.com/TechCore3/snippethold.git
-2. Navigate to directory:
+3. Navigate to directory:
 cd clipstore
-3. Build and install:
-make
+4. Build and install:
 sudo make install
 
 This builds the binary and places it in /usr/local/bin.
