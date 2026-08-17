@@ -1,5 +1,5 @@
 /*
- * clipstore - A lightweight CLI snippet manager
+ * snippethold - A lightweight CLI snippet manager
  * Copyright (C) 2026 TechCore3
  *
  * This program is free software: you can redistribute it and/or modify
@@ -27,5 +27,9 @@ int get_single_entry(const char *file);
 int remove_entry(const char *file);
 
 int get_all_entries(const char *dir_path);
+
+int write_file_crypt(const char *content, const char *file, const char *password);
+
+int get_single_entry_crypt(const char *file, const char *password);
 
 #endif

@@ -1,12 +1,12 @@
 CC      := gcc
-CFLAGS  := -Wall -Wextra -O2
+CFLAGS  := -Wall -Wextra -O2 -lsodium
 PREFIX  := /usr/local
 BINDIR  := $(PREFIX)/bin
 
-TARGET  := clipstore
-SRCS    := main.c clipstore.c
+TARGET  := snippethold
+SRCS    := main.c snippethold.c
 OBJS    := $(SRCS:.c=.o)
-HEADERS := clipstore.h
+HEADERS := snippethold.h
 
 .PHONY: all build clean install uninstall
 
