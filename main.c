@@ -58,7 +58,7 @@ int main(int argc, char *argv[]){
 	        return 0;
 	    }
 
-    snprintf(dir_path, sizeof(dir_path), "%s/.snippethold", home);
+    snprintf(dir_path, sizeof(dir_path), "%s/.config/.snippethold", home);
 
     if (access(dir_path, F_OK)){
 		mkdir(dir_path, 0700);

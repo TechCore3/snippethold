@@ -1,11 +1,11 @@
 # snippethold
 
-snippethold is a fast, lightweight, terminal-based snippet manager written in C. It allows you to store, list, retrieve, and delete text snippets directly from your CLI, storing them safely in ~/.config/snippethold.
+snippethold is a fast, lightweight, terminal-based snippet manager written in C. It allows you to store, list, retrieve, and delete text snippets directly from your CLI, storing them safely in ~/.config/.snippethold.
 
 ## Features
 
 * Lightweight & Fast: Zero external dependencies outside standard C libraries.
-* Isolated Storage: Automatically creates and uses a dedicated directory (~/.config/snippethold).
+* Isolated Storage: Automatically creates and uses a dedicated directory (~/.config/.snippethold).
 * Simple Interface: Easy-to-remember flags for common snippet management operations.
 
 ## Installation
@@ -35,7 +35,7 @@ make clean
 
 ## Usage
 
-clipstore  [file] [contents]
+snippethold  [file] [contents]
 
 Options:
 -s    Store snippet contents into a file
