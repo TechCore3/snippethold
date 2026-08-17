@@ -2,3 +2,4 @@ clipstore
 *.o
 *.swp
 *~
+*.bak

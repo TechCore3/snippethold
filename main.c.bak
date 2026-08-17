@@ -43,11 +43,6 @@ int main(int argc, char *argv[]){
 	char dir_path[512];
 	char password[128]; // too short?
 	char *content = malloc(MAX_CONTENT_LEN); 
-	if (!content){
-		perror("failed to allocate memory for content of snippet");
-		free(content);
-		return 1;
-	}
 	
 	if (home == NULL || '\0' == home[0]){
 		home = "/tmp";
@@ -107,38 +102,16 @@ int main(int argc, char *argv[]){
 	 if (!strcmp(argv[1], "-r")){
 		return remove_entry(file);
 	} 
-	
-	if (!strcmp(argv[1], "-s")){ //rewrite this mess into a function later
-		if (argc < 4){
-		char *buffer = malloc(MAX_CONTENT_LEN);
-		if (!buffer){
-			perror("failed to allocate memory for content buffer");
-			free(buffer);
-			return 1;
-		}
-		content[0] = '\0';
-		while (NULL != fgets(buffer, MAX_CONTENT_LEN, stdin)){
-			strncat(content, buffer, MAX_CONTENT_LEN - strlen(content) - 1);
-		} free(buffer);
-	} else{snprintf(content, MAX_CONTENT_LEN,"%s", argv[3]);}
-		int result =  write_file(content, file);
-		free(content);
-		return result;
+	if (argc < 4) {
+		print_usage();
+		return 1;
 	}
-	if (!strcmp(argv[1], "-ss")){ // this too
-		if (argc < 4){
-		char *buffer = malloc(MAX_CONTENT_LEN);
-		if (!buffer){
-			perror("failed to allocate memory for content buffer");
-			free(buffer);
-			return 1;
-		}
-		content[0] = '\0';
-		while (NULL != fgets(buffer, MAX_CONTENT_LEN, stdin)){
-		strncat(content, buffer, MAX_CONTENT_LEN - strlen(content) - 1);
-		} free(content);
-		clearerr(stdin);
-		} else{snprintf(content, MAX_CONTENT_LEN,"%s", argv[3]);}
+	if (!strcmp(argv[1], "-s")){
+		snprintf(content, MAX_CONTENT_LEN,"%s", argv[3]); 
+		return write_file(content, file);
+	}
+	if (!strcmp(argv[1], "-ss")){
+		snprintf(content, MAX_CONTENT_LEN, "%s", argv[3]);
 		
 		fputs("enter password(to encrypt with): ", stdout);
 		fflush(stdout);
