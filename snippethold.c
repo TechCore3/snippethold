@@ -84,6 +84,11 @@ int get_all_entries(const char *dir_path){
 	return 0;
 }
 
+
+
+
+
+//ENCRYPTION FUNCITONS HERE
 int write_file_crypt(const char *content, const char *file, const char *password){
 	if (sodium_init() < 0) return 1;
 	

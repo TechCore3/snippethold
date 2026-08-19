@@ -13,25 +13,26 @@ Prerequisites:
 
 * GCC or Clang
 * Make
+* LibSodium
 
 Building and Installing:
 
 1. Install libsodium for encryption with your packagem manager of choice:
-sudo pacman -S libsodium
+`sudo pacman -S libsodium`
 2. Clone the repository:
-git clone https://github.com/TechCore3/snippethold.git
+`git clone https://github.com/TechCore3/snippethold.git`
 3. Navigate to directory:
-cd clipstore
+`cd snippethold`
 4. Build and install:
 sudo make install
 
 This builds the binary and places it in /usr/local/bin.
 
 To uninstall:
-sudo make uninstall
+`sudo make uninstall`
 
 To clean build artifacts:
-make clean
+`make clean`
 
 ## Usage
 
@@ -49,13 +50,13 @@ Options:
 ## Examples
 
 1. Save a snippet:
-snippethold <-s|-ss> quicknote "Remember to run updates on server"
+`snippethold <-s|-ss> quicknote "Remember to run updates on server"`
 2. List all saved snippets:
-snippethold -l
+`snippethold -l`
 3. Show a snippet's contents:
-snippethold <-S|-Ss> quicknote
+`snippethold <-S|-Ss> quicknote`
 4. Delete a snippet:
-snippethold -r quicknote
+`snippethold -r quicknote`
 
 ## License
 

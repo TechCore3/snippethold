@@ -37,18 +37,33 @@ void print_usage() {
     puts("  snippethold -r  <file>");
 }
 
+// // // // // // // // // //
+char* append_input_to_content(const int argc, const char *argv[]){
+	char *content = malloc(MAX_CONTENT_LEN);
+	if (!content){
+		perror("failed to allocate memory for content of note");
+		free(content);
+	}
+	if (argc < 4){
+	char *buffer = malloc(MAX_CONTENT_LEN);
+	if (!buffer){
+		perror("failed to allocate memory for content buffer");
+		exit(1);
+	}
+	content[0] = '\0';
+	while (NULL != fgets(buffer, MAX_CONTENT_LEN, stdin)){
+		strncat(content, buffer, MAX_CONTENT_LEN - strlen(content) - 1);
+	} free(buffer);
+	} else{snprintf(content, MAX_CONTENT_LEN,"%s", argv[3]);}
+	return content;
+}
+// // // // // // // // // // 
+
 int main(int argc, char *argv[]){
 	const char *home = getenv("HOME");
-	char file[1024];
-	char dir_path[512];
-	char password[128]; // too short?
-	char *content = malloc(MAX_CONTENT_LEN); 
-	if (!content){
-		perror("failed to allocate memory for content of snippet");
-		free(content);
-		return 1;
-	}
-	
+	char file[2048];
+	char dir_path[1024];
+	char password[128]; 	
 	if (home == NULL || '\0' == home[0]){
 		home = "/tmp";
 	}
@@ -101,44 +116,30 @@ int main(int argc, char *argv[]){
 		password[strcspn(password, "\n")] = '\0';
 		
 		int result =  get_single_entry_crypt(file, password);
-		free(content);
+
 		return result;
 	 }
 	 if (!strcmp(argv[1], "-r")){
 		return remove_entry(file);
 	} 
-	
-	if (!strcmp(argv[1], "-s")){ //rewrite this mess into a function later
-		if (argc < 4){
-		char *buffer = malloc(MAX_CONTENT_LEN);
-		if (!buffer){
-			perror("failed to allocate memory for content buffer");
-			free(buffer);
-			return 1;
-		}
-		content[0] = '\0';
-		while (NULL != fgets(buffer, MAX_CONTENT_LEN, stdin)){
-			strncat(content, buffer, MAX_CONTENT_LEN - strlen(content) - 1);
-		} free(buffer);
-	} else{snprintf(content, MAX_CONTENT_LEN,"%s", argv[3]);}
-		int result =  write_file(content, file);
-		free(content);
+
+	// writing to file statements here
+
+	if (!strcmp(argv[1], "-s")){
+		char *contentFinal = append_input_to_content(argc, (const char **)argv); // CONST CHAR IS CONST CHAR
+		int result =  write_file(contentFinal, file);
+		free(contentFinal);
 		return result;
 	}
-	if (!strcmp(argv[1], "-ss")){ // this too
-		if (argc < 4){
-		char *buffer = malloc(MAX_CONTENT_LEN);
-		if (!buffer){
-			perror("failed to allocate memory for content buffer");
-			free(buffer);
+	if (!strcmp(argv[1], "-ss")){ 
+
+		char *contentFinal = append_input_to_content(argc, (const char **)argv);
+
+		if (NULL == freopen("/dev/tty", "r", stdin)){
+			perror("failed to reopen stdin");
+			free(contentFinal);
 			return 1;
 		}
-		content[0] = '\0';
-		while (NULL != fgets(buffer, MAX_CONTENT_LEN, stdin)){
-		strncat(content, buffer, MAX_CONTENT_LEN - strlen(content) - 1);
-		} free(content);
-		clearerr(stdin);
-		} else{snprintf(content, MAX_CONTENT_LEN,"%s", argv[3]);}
 		
 		fputs("enter password(to encrypt with): ", stdout);
 		fflush(stdout);
@@ -156,8 +157,8 @@ int main(int argc, char *argv[]){
 		tcsetattr(STDIN_FILENO, TCSANOW, &term);
 		password[strcspn(password, "\n")] = '\0';
 		
-		int result =  write_file_crypt(content, file, password);
-		free(content);
+		int result =  write_file_crypt(contentFinal, file, password);
+		free(contentFinal);
 		return result;
 	}
 		print_usage();
